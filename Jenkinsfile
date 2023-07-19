@@ -1,9 +1,8 @@
 pipeline {
     agent{
-        docker.image('maven:3.9.3-eclipse-temurin-8').inside {
-          git 'https://github.com/shuiyihan12/demo1.git'
-          writeFile file: 'settings.xml', text: "<settings><localRepository>${pwd()}/.m2repo</localRepository></settings>"
-          sh 'mvn -B -s settings.xml clean install'
+        docker {
+            image 'maven:3.9.3-eclipse-temurin-17'
+            args '-v ~/.m2:/root/.m2'
         }
     }
     stages {
